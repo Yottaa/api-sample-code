@@ -1,0 +1,23 @@
+development:
+  app_name: oauth test v2
+  app_url: http://localhost:5000
+  client_id: 4ebb79ebc3666e5958000003
+  client_secret: 275214f7fd85dc98fb0e8cb8f668bcc211d58ce3476eac0709bd7c5cea573c65
+
+test:
+  app_name:
+  app_url:
+  client_id:
+  client_secret:
+
+staging:
+  app_name: Yottaa Farm
+  app_url: https://api-dev.yottaa.com
+  client_id: 
+  client_secret: 
+
+production:
+  app_name: Yottaa Farm
+  app_url: https://api.yottaa.com
+  client_id: 
+  client_secret: 

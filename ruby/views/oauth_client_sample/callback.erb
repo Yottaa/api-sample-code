@@ -1,0 +1,11 @@
+<h1>This is OAuth2 callback</h1>
+<% if params[:error] %>
+  <%= params[:error] %>
+<% else %>
+  <h3>Grant success</h3>
+  <h3>code: <%= session[:code] %></h3>
+  <a href="/oauth_client_sample/get_token">Get token now</a>
+  <% if false %>
+    <a href="/oauth_client_sample/private_api_test">Now try the API</a>
+  <% end %>
+<% end %>
