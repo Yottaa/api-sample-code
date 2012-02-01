@@ -21,7 +21,13 @@ to start the server, now you can open localhost:4567 in your browser.
 
 ### PHP
 
-TBD
+The PHP OAuth2 Client implementation uses the light PHP wrapper [PHP-OAuth2](https://github.com/adoy/PHP-OAuth2) with some modifications.
+
+As with the other clients, you must configure your OAuth2 settings in the php/config/oauth_client_sample.yml file, and you can register for an account at the [Yottaa Dev Site](https://dev.yottaa.com) for testing.
+
+After the settings have been changed in the YAML file, edit the environment ($ENV) in the php/oauth_client_sample.php file to specify the environment (testing, staging, development, etc.).
+
+Open the php/oauth_client_sample.php file in your web browser (running on localhost or a server with PHP enabled) to see the sample client in action.
 
 ### Java
 
