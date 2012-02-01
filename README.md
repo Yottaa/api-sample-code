@@ -27,9 +27,7 @@ TBD
 
 This java program is an example of Oauth 2.0 client of Yottaa API. 
 
-For more information on OAuth 2.0, you can go to:
-
-	[oauth-v2-10](http://tools.ietf.org/html/draft-ietf-oauth-v2-10)
+For more information on OAuth 2.0, you can go to: [oauth-v2-10](http://tools.ietf.org/html/draft-ietf-oauth-v2-10)
 
 The program is modified from [Scribe](https://github.com/fernandezpablo85/scribe-java), 
 which is a mature OAuth library for Java by Pablo Fernandez that is intended to work with all APIs.
@@ -55,7 +53,7 @@ To run the programs, do the following:
 
 	git clone git://github.com/Yottaa/api-sample-code.git
 
-(2)install Eclipse Java IDE and install [Maven plugin](http://download.eclipse.org/technology/m2e/releases) for Eclipse;
+(2)install Eclipse Java IDE and install Maven plugin(http://download.eclipse.org/technology/m2e/releases) for Eclipse;
 
 (3)in Eclipse IDE, click "File->Import...->Maven->Existing Maven projects" and then choose Root directory as "api-sample-code/java" to import the java project into Eclipse; 
 
