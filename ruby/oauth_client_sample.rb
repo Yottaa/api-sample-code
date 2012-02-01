@@ -40,7 +40,7 @@ get '/oauth_client_sample/get_token' do
 end
 
 get '/oauth_client_sample/private_api_test' do
-  # Remember to make sure the header must be.
+  # Remember to make sure the header must be:
   #   Authorization: OAuth tokennnnn...
   #
   token = OAuth2::AccessToken.new @client, session[:access_token], :header_format => "OAuth %s"
