@@ -1,0 +1,9 @@
+oauth_client_sample.php contains all of my code for the sample PHP OAuth2 Client.
+
+The sample client will fetch the user's email address, just as Lei Li's ruby client does.
+
+The sample client will also display all of the user's sites, as well as the basic monitoring information for each site.
+
+All other files are from a PHP OAuth2 Client implementation and can be found at the original github repo (https://github.com/adoy/PHP-OAuth2).
+
+Slight modifications were made to the PHP-OAuth2 Client.
