@@ -1,3 +1,4 @@
+/*
 package org.scribe.examples;
 
 import java.util.*;
@@ -16,8 +17,8 @@ public class YottaaExample
   public static void main(String[] args)
   {
     // Replace these with your own api key and secret
-    String apiKey = "4f274a0dc66d4806cb000000";
-    String apiSecret = "caf1f05da20c69bdd4bd56419bcfb41065cae5959da641fd4820c978ae000000";
+    String apiKey = "4f274a0dc66d4806cb00033f";
+    String apiSecret = "caf1f05da20c69bdd4bd56419bcfb41065cae5959da641fd4820c978ae2dc116";
     OAuthService service = new ServiceBuilder()
                                   .provider(YottaaApi.class)
                                   .apiKey(apiKey)
@@ -63,3 +64,4 @@ public class YottaaExample
 
   }
 }
+*/

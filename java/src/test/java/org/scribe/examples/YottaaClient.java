@@ -1,6 +1,6 @@
 
 //http://www-old.marakana.com/blog/examples/java-networking-web-server-example.html
-
+/*
 package org.scribe.examples;
 
 import java.io.BufferedReader;
@@ -26,11 +26,14 @@ import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
+*/
+
 /**
  * This program demonstrates a simple multi-threaded web server. A more advanced
  * version of this server can be implemented using NIO and/or thread pooling.
  */
 
+/*
 public class YottaaClient {
 
     public static void main(String[] args) {
@@ -408,3 +411,4 @@ public class YottaaClient {
     }
 
 }
+*/
