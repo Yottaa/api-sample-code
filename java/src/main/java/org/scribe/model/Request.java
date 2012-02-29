@@ -236,7 +236,7 @@ class Request
    */
   public String getSanitizedUrl()
   {
-    return url.replaceAll("\\?.*", "").replace("\\:\\d{4}", "");
+    return url.replaceAll("\\?.*", "").replace("\\:\\d{2,4}", "");
   }
 
   /**
