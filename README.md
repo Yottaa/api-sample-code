@@ -32,8 +32,8 @@ Open the php/oauth_client_sample.php file in your web browser (running on localh
 ### Java
 
 This java program is an example of Oauth 2.0 client of Yottaa API. 
-For more information on OAuth 2.0, you can go to: [oauth-v2-10](http://tools.ietf.org/html/draft-ietf-oauth-v2-10)
-The program is modified from Scribe(https://github.com/fernandezpablo85/scribe-java), an OAuth library for Java by Pablo Fernandez.
+For more information on OAuth 2.0, you can go to [Oauth-v2-10](http://tools.ietf.org/html/draft-ietf-oauth-v2-10).
+The program is modified from [Scribe](https://github.com/fernandezpablo85/scribe-java), an OAuth library for Java by Pablo Fernandez.
 
 
 please take a look at the following files:
