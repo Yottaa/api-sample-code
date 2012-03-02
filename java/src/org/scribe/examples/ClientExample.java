@@ -11,16 +11,16 @@ import org.scribe.utils.Preconditions;
 
 public class ClientExample
 {		
-	// Replace these with your own api key and secret
-	private static final String ClientId = "4f274a0dc66d4806cb00033f";
-	private static final String ClientSecret = "caf1f05da20c69bdd4bd56419bcfb41065cae5959da641fd4820c978ae2dc116";
+	// Replace these with your own ClientId and ClientSecret
+	private static final String ClientId = "4f274a0dc66d4806cb000000";
+	private static final String ClientSecret = "caf1f05da20c69bdd4bd56419bcfb41065cae5959da641fd4820c978ae2dc000";
 	private static final String CALLBACK_URL = "http://localhost:8080/callback"; 
 	
 	private static final String AUTHORIZE_URL = "https://api-dev.yottaa.com/oauth/authorize?response_type=code&client_id=%s&redirect_uri=%s";	
 	private static final String AccessTokenEndpoint = "https://api-dev.yottaa.com/oauth/access_token";
 
-	private static final String PROTECTED_RESOURCE_URL1 = "https://api-dev.yottaa.com/users/email";
-	private static final String PROTECTED_RESOURCE_URL2 = "https://api-dev.yottaa.com/sites";
+	public static final String PROTECTED_RESOURCE_URL1 = "https://api-dev.yottaa.com/users/email";
+	public static final String PROTECTED_RESOURCE_URL2 = "https://api-dev.yottaa.com/sites";
 
 	public static void main(String[] args)
 	{
@@ -64,9 +64,8 @@ public class ClientExample
 		System.out.println(ss2);
 		System.out.println();    
 	}
-
-
-	private static String getAuthorizationUrl() {
+	
+	public static String getAuthorizationUrl() {
 		return String.format(AUTHORIZE_URL, ClientId, OAuthEncoder.encode(CALLBACK_URL));
 	}
 
@@ -106,7 +105,7 @@ public class ClientExample
 		return str;
 	}
 
-	public static String extract_Token(String name, String response)
+	private static String extract_Token(String name, String response)
 	{  
 		Preconditions.checkEmptyString(name, "name String is incorrect!");	
 		Preconditions.checkEmptyString(response, "Response body is incorrect. Can't extract a token from an empty string");
@@ -128,12 +127,12 @@ public class ClientExample
 
 	}
 
-	private static String getResource(String accessToken, String protectedResourceUrl) 
+	public static String getResource(String accessToken, String protectedResourceUrl) 
 	{
 		OAuthRequest request = new OAuthRequest(Verb.GET, protectedResourceUrl);
 		request.addHeader("Authorization", "OAUTH "+accessToken);
 		Response response = request.send();
-		String ss = "response code is \"" + response.getCode() + "\" and response content is:\n";
+		String ss = "status code is \"" + response.getCode() + "\" and resource content is:\n";
 		ss += response.getBody();
 		return ss;
 	}
