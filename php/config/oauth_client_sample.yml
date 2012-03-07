@@ -3,29 +3,21 @@ development:
   app_url: https://api-dev.yottaa.com
   client_url: http://localhost/OAuth2PHPClient
   server_url: https://api-dev.yottaa.com
-  client_id: 4f1dcd32c66d484f63000144
-  client_secret: 0c3f6703c3ce05b397c1db34b5975e1f33e154e4917db9da8faddf26d541741a
+  client_id: 
+  client_secret: 
 
 staging:
   app_name: Yottaa Link (staging)
   app_url: https://api-dev.yottaa.com
   client_url: http://10.0.1.72/OAuth2PHPClient
   server_url: https://api-dev.yottaa.com
-  client_id: 4f1de7d1c66d484f63000173
-  client_secret: 35eb9a8e5570331a7ef2ec9c72319ecfda5e956dddf9bc5686d2168e754ba48f
-
-server:
-  app_name: Yottaa Link (server)
-  app_url: https://api-dev.yottaa.com
-  client_url: http://dsomach.scripts.mit.edu/yottaa/oauth
-  server_url: https://api-dev.yottaa.com
-  client_id: 4f1deb7bc66d484f63000187
-  client_secret: fcf234f360c95d5a5ac16e39ea293a11b4e0b49ec04643cfbcd78c3224305e4a
+  client_id: 
+  client_secret: 
 
 production:
   app_name: Yottaa Link
   app_url: https://api-dev.yottaa.com
   client_url: https://api-dev.yottaa.com
   server_url: https://api-dev.yottaa.com
-  client_id: 4f16cbe2c66d484f63000002
-  client_secret: d5a672039cdc03706ae3ca0b2d480f9b5060562906d598331b1a4e2629b6f58f
+  client_id: 
+  client_secret: 

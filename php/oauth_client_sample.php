@@ -2,7 +2,7 @@
 session_start();
 // OAuth2 PHP Sample Client
 // Choose environment (ENV):
-// (options: development, staging, server, production)
+// (options: development, staging, production)
 $ENV = 'development';
 
 define('APP_PATH', dirname(__FILE__));
@@ -29,7 +29,7 @@ $token_url = $server_url . '/oauth_client_sample/get_token';
 // The client instance - see "Client.php"
 $client = new OAuth2\Client($client_id, $client_secret);
 
-if (!isset($_GET['code']) && !isset($_SESSION['token']))
+if (!isset($_GET['code']) && !isset($_SESSION['access_token']))
 {
 	// On first load, get authentication from Yottaa.
 	$auth_url = $client->getAuthenticationUrl($authorize_url, $redirect_uri);
@@ -41,7 +41,7 @@ else
 	// If we don't have a token set as a session variable, then the page load
 	// comes after requesting the authorization grant. Fetch the access token
 	// in this scenario.
-	if (!isset($_SESSION['token']))
+	if (!isset($_SESSION['access_token']))
 	{
 		// Once we've received the authentication grant, fetch the access token.
 		$authorization_code = $_GET['code'];
@@ -49,15 +49,18 @@ else
 		$params = array('code' => $authorization_code, 'redirect_uri' => $redirect_uri);
 		$response = $client->getAccessToken($server_url . '/oauth/access_token', 'authorization_code', $params);
 		$access_token = $response['result']['access_token'];
+		$refresh_token = $response['result']['refresh_token'];
 
-		// Store the access token as a session variable.
-		$_SESSION['token'] = $access_token;
+		// Store the access token and refresh token as a session variable.
+		$_SESSION['access_token'] = $access_token;
+		$_SESSION['refresh_token'] = $refresh_token;
 	}
 	// Otherwise, if the token is already stored as a session variable, we can
 	// go directly to requesting any protected resource.
 	else
 	{
-		$access_token = $_SESSION['token'];
+		$access_token = $_SESSION['access_token'];
+		$refresh_token = $_SESSION['refresh_token'];
 	}
 	// Set the access token - it will be used when fetching the protected resources.
 	$client->setAccessToken($access_token);
@@ -75,14 +78,25 @@ else
 
 	// Fetch the user's email and site list.
 	$response = $client->fetch($URL_email, array(), 'GET', $http_headers);
-	
+		
 	// If the request failed, restart the authorization process:
 	// (Otherwise, continue with resource fetching.)
+	echo var_dump($response);
+
 	if ($response['code'] == 401)
 	{
-		$auth_url = $client->getAuthenticationUrl($authorize_url, $redirect_uri);
-		header('Location: ' . $auth_url);
-		die('Redirect');	
+		// Reauthorize using refresh token if the access token has been expired
+		$params = array('refresh_token' => $_SESSION['refresh_token'], 'redirect_uri' => $redirect_uri);
+		$response = $client->getAccessToken($server_url . '/oauth/access_token', 'refresh_token', $params);
+
+		// After reauthorization is complete, refetch protected resource (email)
+		$response = $client->fetch($URL_email, array(), 'GET', $http_headers);
+
+		echo "<h2>Access token has expired, used refresh token.</h2>";
+	}
+	else
+	{
+		echo "<h2>Valid access token, no need to use refresh token.</h2>";
 	}
 	$user_email = $response['result'];
 	
@@ -97,7 +111,8 @@ else
 	{
 		echo "<b>Authorization Code:</b> <i>(using token stored in session)</i><br /><br />";
 	}
-	echo "<b>Token:</b> $access_token <br /><br />";
+	echo "<b>Access Token:</b> $access_token <br /><br />";
+	echo "<b>Refresh Token:</b> $refresh_token <br /><br />";
 	echo "<b>User email:</b> $user_email <br /><br />";
 	echo "<b>User sites:</b> <ul>";
 	
