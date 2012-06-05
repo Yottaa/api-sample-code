@@ -1,0 +1,3 @@
+Load "index.html" in a dev environment.
+
+For each sample API call, an AJAX call is made to the corresponding PHP file.
