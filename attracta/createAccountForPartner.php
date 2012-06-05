@@ -29,12 +29,8 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 // Fetch JSON response from Yottaa Partner API
 $response = curl_exec($ch);
 //(response has email, user_id, site_id, host, yottaa_cname)
-
+echo $response;
 // Close connection
 curl_close($ch);
-
-// Return decoded JSON response.
-//output("FETCH RESPONSE", json_decode($response, TRUE));
-return json_decode($response, TRUE);
 
 ?>

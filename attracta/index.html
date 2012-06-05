@@ -1,20 +1,15 @@
 <html>
 <head>
-<!--script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script-->
 <meta charset="utf-8">
-<title>Yottaa cPanel Plugin</title>
+<title>Yottaa-Attracta Sample API Calls</title>
 </head>
 <body>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript">
 
-function addHTML(selector, value)
-{
-	$(selector).html(value);
-}
-
 function createAccountForPartner()
 {
+  $("#content_head").html("Fetching API response...");
   //TODO switch back to jquery with internet connection
   //var partner_id = $("#partner_id").val();
   var api_key_val = document.getElementById("api_key").value;
@@ -23,32 +18,168 @@ function createAccountForPartner()
   var site_val = document.getElementById("site").value;
 
   $.getJSON('createAccountForPartner.php', {api_key: api_key_val, partner_id: partner_id_val, email: email_val, site: site_val}, function(data){
-		var res_email = data['email'];
-    var res_user_id = data['user_id'];
-    var res_site_id = data['site_id'];
-    var res_host = data['host'];
-    var res_yottaa_cname = data['yottaa_cname'];
+		if (data['error'])
+    {
+      var error = JSON.stringify(data['error']);
+      var response = "Account Creation Error: " + error;
+    }
+    else
+    {
+      var res_email = data['email'];
+      var res_user_id = data['user_id'];
+      var res_site_id = data['site_id'];
+      var res_host = data['host'];
+      var res_yottaa_cname = data['yottaa_cname'];
 
-    var response = "<p><b>Email:</b>" + data['email'] + "</p>" +
-                   "<p><b>User ID:</b>" + data['user_id'] + "</p>" +
-                   "<p><b>Site ID:</b>" + data['site_id'] + "</p>" +
-                   "<p><b>Host:</b>" + data['host'] + "</p>" +
-                   "<p><b>Yottaa CNAME:</b>" + data['yottaa_cname'] + "</p>";
-    
+      var response = "<p><b>Email:</b>" + data['email'] + "</p>" +
+                     "<p><b>User ID:</b>" + data['user_id'] + "</p>" +
+                     "<p><b>Site ID:</b>" + data['site_id'] + "</p>" +
+                     "<p><b>Host:</b>" + data['host'] + "</p>" +
+                     "<p><b>Yottaa CNAME:</b>" + data['yottaa_cname'] + "</p>";
+    }
     $("#content_head").html(response); 
    
 	});
 
 }
 
+function newSiteForAccount()
+{
+  $("#content_head").html("Fetching API response...");
+  //TODO switch back to jquery with internet connection
+  //var partner_id = $("#partner_id").val();
+  var api_key_val = document.getElementById("api_key").value;
+  var partner_id_val = document.getElementById("partner_id").value;
+  var account_id_val = document.getElementById("account_id").value;
+  var host_val = document.getElementById("host").value;
+
+  $.getJSON('newSiteForAccount.php', {api_key: api_key_val, partner_id: partner_id_val, account_id: account_id_val, host: host_val}, function(data){
+		if (data['error'])
+    {
+      var error = JSON.stringify(data['error']);
+      var response = "Add New Site Error: " + error;
+    }
+    else
+    {
+      var res_site_id = data['site_id'];
+      var res_host = data['host'];
+
+      var response = "<p><b>Site ID:</b>" + data['site_id'] + "</p>" +
+                     "<p><b>Host:</b>" + data['host'] + "</p>";
+    }
+    $("#content_head").html(response);
+   
+	});
+
+}
+
+function pauseOptimizer()
+{
+  $("#content_head").html("Fetching API response...");
+  //TODO switch back to jquery with internet connection
+  //var partner_id = $("#partner_id").val();
+  var api_key_val = document.getElementById("api_key").value;
+  var partner_id_val = document.getElementById("partner_id").value;
+  var account_id_val = document.getElementById("account_id").value;
+  var site_id_val = document.getElementById("site_id").value;
+
+  $.getJSON('pauseOptimizer.php', {api_key: api_key_val, partner_id: partner_id_val, account_id: account_id_val, site_id: site_id_val}, function(data){
+		if (data['error'])
+    {
+      var error = JSON.stringify(data['error']);
+      var response = "Optimizer Pause Error: " + error;
+    }
+    else
+    {
+      //var response = "<p><b>Site ID:</b>" + data['site_id'] + "</p>" +
+      //               "<p><b>Host:</b>" + data['host'] + "</p>";
+      var response = "call successful...";
+    }
+    $("#content_head").html(response);
+   
+	});
+
+}
+
+function resumeOptimizer()
+{
+  $("#content_head").html("Fetching API response...");
+  //TODO switch back to jquery with internet connection
+  //var partner_id = $("#partner_id").val();
+  var api_key_val = document.getElementById("api_key").value;
+  var partner_id_val = document.getElementById("partner_id").value;
+  var account_id_val = document.getElementById("account_id").value;
+  var site_id_val = document.getElementById("site_id").value;
+
+  $.getJSON('resumeOptimizer.php', {api_key: api_key_val, partner_id: partner_id_val, account_id: account_id_val, site_id: site_id_val}, function(data){
+		if (data['error'])
+    {
+      var error = JSON.stringify(data['error']);
+      var response = "Optimizer Resume Error: " + error;
+    }
+    else
+    {
+      //var response = "<p><b>Site ID:</b>" + data['site_id'] + "</p>" +
+      //               "<p><b>Host:</b>" + data['host'] + "</p>";
+      var response = "call successful...";
+    }
+    $("#content_head").html(response);
+   
+	});
+
+}
+
+
+
+function showDiv(divName)
+{
+  $("span[class='callsection']").hide();
+  $("#" + divName).show();
+}
+
+
 </script>
 
-<h2>Create Account for Partner</h2>
 <p>API Key:<input id="api_key" /></p>
 <p>Partner ID:<input id="partner_id" /></p>
+
+Select Call:
+<input type="radio" name="call" onClick="showDiv('create_account');" checked>Create Account for Partner</input>
+<input type="radio" name="call" onClick="showDiv('new_site');">Add Site to Account</input>
+<input type="radio" name="call" onClick="showDiv('pause_optimizer');">Pause Optimizer for a Site</input>
+<input type="radio" name="call" onClick="showDiv('resume_optimizer');">Resume Optimizer for a Site</input>
+
+<span class="callsection" id="create_account">
+<h2>Create Account for Partner</h2>
 <p>Email:<input id="email" /></p>
 <p>Site:<input id="site" /></p>
 <button onClick="createAccountForPartner();">Create Account</button>
-<div id="content_head"></div>
+</span>
+
+<span class="callsection" id="new_site" style="display: none;">
+<h2>Add Site to Account</h2>
+<p>Account ID:<input id="account_id" /></p>
+<p>Host:<input id="host" /></p>
+<button onClick="newSiteForAccount();">Add Site</button>
+</span>
+
+<span class="callsection" id="pause_optimizer" style="display: none;">
+<h2>Pause Optimizer for a Site</h2>
+<p>Account ID:<input id="account_id" /></p>
+<p>Site ID:<input id="site_id" /></p>
+<button onClick="pauseOptimizer();">Pause Optimizer</button>
+</span>
+
+<span class="callsection" id="resume_optimizer" style="display: none;">
+<h2>Resume Optimizer for a Site</h2>
+<p>Account ID:<input id="account_id" /></p>
+<p>Site ID:<input id="site_id" /></p>
+<button onClick="resumeOptimizer();">Resume Optimizer</button>
+</span>
+
+
+<br/><br/>
+<div id="content_head"><i>(API Response)</i></div>
+
 </body>
 </html>
