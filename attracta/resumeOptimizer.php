@@ -1,7 +1,6 @@
 <?php
 
-//$base_url = 'http://localhost:5000';
-$base_url = 'http://api-dev-new.yottaa.com';
+$base_url = $_GET['api_environment'];
 $api_key = $_GET['api_key'];
 $partner_id = $_GET['partner_id'];
 $account_id = $_GET['account_id'];
@@ -9,14 +8,22 @@ $site_id = $_GET['site_id'];
 
 $header = array("YOTTAA-API-KEY: $api_key");
 
+// Build array of HTTP POST variables:
+$post_vars = array(
+    "account_id" => $account_id,
+);
+
 // Build request URL:
-$fetch_url = $GLOBALS['base_url'] . "/partners/$partner_id/sites/$site_id/optimizer/resume";
+$fetch_url = $base_url . "/partners/$partner_id/sites/$site_id/optimizer/resume";
 
 // Initialize cURL instance with request URL:
 $ch = curl_init($fetch_url);
 
-// Set options (HTTP POST)
-curl_setopt($ch, CURLOPT_POST, TRUE);
+// Set options (HTTP PUT)
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+curl_setopt($ch, CURLOPT_POSTFIELDS, $post_vars);
 curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 
