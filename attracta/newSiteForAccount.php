@@ -1,6 +1,6 @@
 <?php
 
-$base_url = 'http://localhost:5000';
+$base_url = $_GET['api_environment'];
 $api_key = $_GET['api_key'];
 $partner_id = $_GET['partner_id'];
 $account_id = $_GET['account_id'];
@@ -21,6 +21,7 @@ $ch = curl_init($fetch_url);
 
 // Set options (HTTP POST)
 curl_setopt($ch, CURLOPT_POST, TRUE);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $post_vars);
 curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
