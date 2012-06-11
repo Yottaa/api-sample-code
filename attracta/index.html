@@ -10,12 +10,15 @@
 function createAccountForPartner()
 {
   $("#content_head").html("Fetching API response...");
+  var api_environment_val = $("#api_environment").val();
   var api_key_val = $("#api_key").val();
   var partner_id_val = $("#partner_id").val();
-  var email_val = $("#email").val();
-  var site_val = $("#site").val();
+  var email_val = $("#email_create").val();
+  var site_val = $("#site_create").val();
+  var plan_val = $("#plan_create").val();
+  var phone_val = $("#phone_create").val();
 
-  $.getJSON('createAccountForPartner.php', {api_key: api_key_val, partner_id: partner_id_val, email: email_val, site: site_val}, function(data){
+  $.getJSON('createAccountForPartner.php', {api_environment: api_environment_val, api_key: api_key_val, partner_id: partner_id_val, email: email_val, site: site_val, plan: plan_val, phone: phone_val}, function(data){
 		if (data['error'])
     {
       var error = JSON.stringify(data['error']);
@@ -42,12 +45,13 @@ function createAccountForPartner()
 function newSiteForAccount()
 {
   $("#content_head").html("Fetching API response...");
+  var api_environment_val = $("#api_environment").val();
   var api_key_val = $("#api_key").val();
   var partner_id_val = $("#partner_id").val();
-  var account_id_val = $("#account_id").val();
-  var host_val = $("#host").val();
+  var account_id_val = $("#account_id_newsite").val();
+  var host_val = $("#host_newsite").val();
   
-  $.getJSON('newSiteForAccount.php', {api_key: api_key_val, partner_id: partner_id_val, account_id: account_id_val, host: host_val}, function(data){
+  $.getJSON('newSiteForAccount.php', {api_environment: api_environment_val, api_key: api_key_val, partner_id: partner_id_val, account_id: account_id_val, host: host_val}, function(data){
 		if (data['error'])
     {
       var error = JSON.stringify(data['error']);
@@ -68,21 +72,25 @@ function newSiteForAccount()
 function pauseOptimizer()
 {
   $("#content_head").html("Fetching API response...");
+  var api_environment_val = $("#api_environment").val();
   var api_key_val = $("#api_key").val();
   var partner_id_val = $("#partner_id").val();
-  var account_id_val = $("#account_id").val();
-  var site_id_val = $("#site_id").val();
+  var account_id_val = $("#account_id_pause").val();
+  var site_id_val = $("#site_id_pause").val();
 
-  $.getJSON('pauseOptimizer.php', {api_key: api_key_val, partner_id: partner_id_val, account_id: account_id_val, site_id: site_id_val}, function(data){
-		if (data['error'])
+  $.getJSON('pauseOptimizer.php', {api_environment: api_environment_val, api_key: api_key_val, partner_id: partner_id_val, account_id: account_id_val, site_id: site_id_val}, function(data){
+		if (data['error_response'])
     {
-      var error = JSON.stringify(data['error']);
+      var error = JSON.stringify(data['error_response']);
       var response = "Optimizer Pause Error: " + error;
+    }
+		else if (data['message'])
+    {
+      var error = JSON.stringify(data['message']);
+      var response = "Optimizer Pause Message: " + error;
     }
     else
     {
-      //var response = "<p><b>Site ID:</b>" + data['site_id'] + "</p>" +
-      //               "<p><b>Host:</b>" + data['host'] + "</p>";
       var response = "call successful...";
     }
     $("#content_head").html(response);
@@ -92,21 +100,25 @@ function pauseOptimizer()
 function resumeOptimizer()
 {
   $("#content_head").html("Fetching API response...");
+  var api_environment_val = $("#api_environment").val();
   var api_key_val = $("#api_key").val();
   var partner_id_val = $("#partner_id").val();
-  var account_id_val = $("#account_id").val();
-  var site_id_val = $("#site_id").val();
+  var account_id_val = $("#account_id_resume").val();
+  var site_id_val = $("#site_id_resume").val();
   
-  $.getJSON('resumeOptimizer.php', {api_key: api_key_val, partner_id: partner_id_val, account_id: account_id_val, site_id: site_id_val}, function(data){
-		if (data['error'])
+  $.getJSON('resumeOptimizer.php', {api_environment: api_environment_val, api_key: api_key_val, partner_id: partner_id_val, account_id: account_id_val, site_id: site_id_val}, function(data){
+		if (data['error_response'])
     {
-      var error = JSON.stringify(data['error']);
+      var error = JSON.stringify(data['error_response']);
       var response = "Optimizer Resume Error: " + error;
+    }
+		else if (data['message'])
+    {
+      var error = JSON.stringify(data['message']);
+      var response = "Optimizer Resume Message: " + error;
     }
     else
     {
-      //var response = "<p><b>Site ID:</b>" + data['site_id'] + "</p>" +
-      //               "<p><b>Host:</b>" + data['host'] + "</p>";
       var response = "call successful...";
     }
     $("#content_head").html(response);
@@ -116,12 +128,31 @@ function resumeOptimizer()
 
 function showDiv(divName)
 {
+  $("#content_head").html('<i>(API response)</i>');
   $("span[class='callsection']").hide();
   $("#" + divName).show();
 }
 
+function setEnv(environment)
+{
+  $("#api_environment").attr('disabled', 'true');
+  $("#api_environment").val(environment);
+  if(environment == "Other...")
+  {
+    $("#api_environment").removeAttr('disabled');
+  }
+}
 
 </script>
+
+Select API environment:
+<select onchange="setEnv(this.value);">
+  <option value="http://localhost:8081">Local (http://localhost:8081)</option>
+  <option value="https://api-dev-new.yottaa.com">Staging (https://api-dev-new.yottaa.com)</option>
+  <option value="https://api.yottaa.com">Production (https://api.yottaa.com)</option>
+  <option value="Other...">Other...</option>
+</select>
+<input id="api_environment" value="http://localhost:8081" disabled></input>
 
 <p>API Key:<input id="api_key" /></p>
 <p>Partner ID:<input id="partner_id" /></p>
@@ -134,29 +165,31 @@ Select Call:
 
 <span class="callsection" id="create_account">
 <h2>Create Account for Partner</h2>
-<p>Email:<input id="email" /></p>
-<p>Site:<input id="site" /></p>
+<p>Email:<input id="email_create" /></p>
+<p>Site:<input id="site_create" /></p>
+<p>Plan:<input id="plan_create" /></p>
+<p>Phone:<input id="phone_create" /></p>
 <button onClick="createAccountForPartner();">Create Account</button>
 </span>
 
 <span class="callsection" id="new_site" style="display: none;">
 <h2>Add Site to Account</h2>
-<p>Account ID:<input id="account_id" /></p>
-<p>Host:<input id="host" /></p>
+<p>Account ID:<input id="account_id_newsite" /></p>
+<p>Host:<input id="host_newsite" /></p>
 <button onClick="newSiteForAccount();">Add Site</button>
 </span>
 
 <span class="callsection" id="pause_optimizer" style="display: none;">
 <h2>Pause Optimizer for a Site</h2>
-<p>Account ID:<input id="account_id" /></p>
-<p>Site ID:<input id="site_id" /></p>
+<p>Account ID:<input id="account_id_pause" /></p>
+<p>Site ID:<input id="site_id_pause" /></p>
 <button onClick="pauseOptimizer();">Pause Optimizer</button>
 </span>
 
 <span class="callsection" id="resume_optimizer" style="display: none;">
 <h2>Resume Optimizer for a Site</h2>
-<p>Account ID:<input id="account_id" /></p>
-<p>Site ID:<input id="site_id" /></p>
+<p>Account ID:<input id="account_id_resume" /></p>
+<p>Site ID:<input id="site_id_resume" /></p>
 <button onClick="resumeOptimizer();">Resume Optimizer</button>
 </span>
 
