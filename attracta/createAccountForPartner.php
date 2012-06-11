@@ -1,10 +1,12 @@
 <?php
 
-$base_url = 'http://localhost:5000';
+$base_url = $_GET['api_environment'];
 $api_key = $_GET['api_key'];
 $partner_id = $_GET['partner_id'];
 $email = $_GET['email'];
 $site = $_GET['site'];
+$plan = $_GET['plan'];
+$phone = $_GET['phone'];
 
 $header = array("YOTTAA-API-KEY: $api_key");
 
@@ -12,6 +14,8 @@ $header = array("YOTTAA-API-KEY: $api_key");
 $post_vars = array(
     "email" => $email,
     "site" => $site,
+    "plan" => $plan,
+    "phone" => $phone,
 );
 
 // Build request URL:
@@ -22,6 +26,7 @@ $ch = curl_init($fetch_url);
 
 // Set options (HTTP POST)
 curl_setopt($ch, CURLOPT_POST, TRUE);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 curl_setopt($ch, CURLOPT_POSTFIELDS, $post_vars);
 curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
